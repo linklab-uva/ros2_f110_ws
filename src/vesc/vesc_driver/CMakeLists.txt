@@ -35,11 +35,16 @@ rclcpp_components_register_node(${PROJECT_NAME}
   EXECUTABLE ${PROJECT_NAME}_node
 )
 
+# add_executable(vesc_driver src/vesc_driver.cpp)
+# ament_target_dependencies(vesc_driver rclcpp tf2)
+
 ament_auto_add_executable(
   vesc_device_namer
   src/vesc_device_namer.cpp
   src/vesc_device_uuid_lookup.cpp
 )
+
+
 
 #############
 ## Testing ##
