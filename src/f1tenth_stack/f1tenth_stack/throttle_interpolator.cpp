@@ -49,10 +49,10 @@ public:
     servo_sub = this->create_subscription<std_msgs::msg::Float64>(servo_input_topic, 1, std::bind(&ThrottleInterpolator::_process_servo_command, this, std::placeholders::_1));
 
     max_delta_servo = abs(steering_angle_to_servo_gain * max_servo_speed / servo_smoother_rate);
-    servo_timer = this->create_wall_timer(std::chrono::milliseconds(1.0 / servo_smoother_rate), std::bind(&ThrottleInterpolator::_publish_servo_command, this));
+    servo_timer = this->create_wall_timer(std::chrono::duration<double>(1.0 / servo_smoother_rate), std::bind(&ThrottleInterpolator::_publish_servo_command, this));
 
     max_delta_rpm = abs(speed_to_erpm_gain * max_acceleration / throttle_smoother_rate);
-    rmp_timer = this->create_wall_timer(std::chrono::milliseconds(1.0 / throttle_smoother_rate), std::bind(&ThrottleInterpolator::_publish_throttle_command, this));
+    rmp_timer = this->create_wall_timer(std::chrono::duration<double>(1.0 / throttle_smoother_rate), std::bind(&ThrottleInterpolator::_publish_throttle_command, this));
   }
 
 private:
