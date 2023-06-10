@@ -4,8 +4,10 @@
   <name>f1tenth_stack</name>
   <version>0.0.1</version>
   <description>Onboard drivers for vesc and sensors for F1TENTH vehicles.</description>
-  <maintainer email="billyzheng.bz@gmail.com">Hongrui Zheng</maintainer>
+  <maintainer email="jwl9vq@virginia.edu">Hongrui Zheng</maintainer>
   <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>ackermann_msgs</depend>
   <depend>urg_node</depend>
@@ -22,6 +24,6 @@
   <test_depend>python3-pytest</test_depend>
 
   <export>
-    <build_type>ament_python</build_type>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>

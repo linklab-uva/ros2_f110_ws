@@ -43,9 +43,9 @@ vesc_to_odom_node:
 
 throttle_interpolator:
   ros__parameters:
-    rpm_input_topic: commands/motor/unsmoothed_speed
+    rpm_input_topic: commands/speed
     rpm_output_topic: commands/motor/speed
-    servo_input_topic: commands/servo/unsmoothed_position
+    servo_input_topic: commands/steering_angle
     servo_output_topic: commands/servo/position
 
     # servo smoother - limits acceleration and smooths anything above limit
