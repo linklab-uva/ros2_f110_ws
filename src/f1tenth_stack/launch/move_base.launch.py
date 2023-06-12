@@ -32,7 +32,7 @@ import os
 
 def generate_launch_description():
 
-    car_namespace = "car_x"
+    car_namespace = ""
     use_sim_time = False
 
     vesc_config = os.path.join(
@@ -47,6 +47,7 @@ def generate_launch_description():
     )
     with open(urdf_file, 'r') as infp:
         robot_desc = infp.read()
+
     sensors_config = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'config',
