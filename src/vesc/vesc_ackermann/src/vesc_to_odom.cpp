@@ -61,13 +61,13 @@ VescToOdom::VescToOdom(const rclcpp::NodeOptions & options)
   base_frame_ = declare_parameter("base_frame", base_frame_);
   use_servo_cmd_ = declare_parameter("use_servo_cmd_to_calc_angular_velocity", use_servo_cmd_);
 
-  speed_to_erpm_gain_ = declare_parameter<double>("speed_to_erpm_gain");
-  speed_to_erpm_offset_ = declare_parameter<double>("speed_to_erpm_offset");
+  speed_to_erpm_gain_ = declare_parameter<double>("speed_to_erpm_gain", 0.0);
+  speed_to_erpm_offset_ = declare_parameter<double>("speed_to_erpm_offset", 0.0);
 
   if (use_servo_cmd_) {
-    steering_to_servo_gain_ = declare_parameter<double>("steering_angle_to_servo_gain");
-    steering_to_servo_offset_ = declare_parameter<double>("steering_angle_to_servo_offset");
-    wheelbase_ = declare_parameter<double>("wheelbase");
+    steering_to_servo_gain_ = declare_parameter<double>("steering_angle_to_servo_gain", 0.0);
+    steering_to_servo_offset_ = declare_parameter<double>("steering_angle_to_servo_offset", 0.0);
+    wheelbase_ = declare_parameter<double>("wheelbase", 0.4);
   }
 
   publish_tf_ = declare_parameter("publish_tf", publish_tf_);
