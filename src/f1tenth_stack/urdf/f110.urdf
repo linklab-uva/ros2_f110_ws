@@ -4,7 +4,7 @@
   <link name="rear_axle_middle" />
   <link name="rear_axle_middle_ground" />
   <link name="imu_link" />
-  <link name="lidar_link" />
+  <link name="laser" />
 
   <joint name="rear_axle_middle_joint" type="fixed">
     <parent link="center_of_gravity"/>
@@ -26,7 +26,7 @@
 
   <joint name="lidar_joint" type="fixed">
     <parent link="rear_axle_middle" />
-    <child link="lidar_link" />
+    <child link="laser" />
 	<origin xyz="0.06 0.0 0.185" />
   </joint>
 
