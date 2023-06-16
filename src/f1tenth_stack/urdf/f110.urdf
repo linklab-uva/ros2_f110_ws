@@ -4,24 +4,30 @@
   <link name="rear_axle_middle" />
   <link name="rear_axle_middle_ground" />
   <link name="imu_link" />
+  <link name="lidar_link" />
 
   <joint name="rear_axle_middle_joint" type="fixed">
     <parent link="center_of_gravity"/>
     <child link="rear_axle_middle" />
-    <origin xyz="-1.3206 0.030188 -0.23598" />
+    <origin xyz="-0.13 0.0 -0.02" />
   </joint>
 
   <joint name="rear_axle_middle_ground_joint" type="fixed">
     <parent link="rear_axle_middle"/>
     <child link="rear_axle_middle_ground" />
-    <origin xyz="0 0 -0.198" />
+    <origin xyz="0 0 -0.05" />
   </joint>
 
   <joint name="imu_joint" type="fixed">
     <parent link="rear_axle_middle" />
     <child link="imu_link" />
-	<origin xyz="1.606 0.0 -0.0703" />
+	<origin xyz="0.15 -0.06 0.05" />
   </joint>
 
+  <joint name="lidar_joint" type="fixed">
+    <parent link="rear_axle_middle" />
+    <child link="lidar_link" />
+	<origin xyz="0.06 0.0 0.185" />
+  </joint>
 
 </robot>

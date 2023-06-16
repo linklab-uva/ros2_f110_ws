@@ -11,7 +11,7 @@ Once installed
 - autoremove any packages
 - remove nvidia jetson and connectech orbitty BSP from apt sources list to prevent further updates
 - reboot
-- modify /etc/update-manager/software-update and change when updates are offered from never to normal
+- modify /etc/update-manager/release-upgrades and change when updates are offered from never to normal
 - update and upgrade again
 - sudo apt-get dist-upgrade
 - sudo do-release-update
