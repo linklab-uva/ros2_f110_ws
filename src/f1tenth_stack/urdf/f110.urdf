@@ -4,6 +4,7 @@
   <link name="rear_axle_middle" />
   <link name="rear_axle_middle_ground" />
   <link name="imu_link" />
+  <link name="vesc_odom" />
   <link name="laser" />
 
   <joint name="rear_axle_middle_joint" type="fixed">
@@ -21,6 +22,12 @@
   <joint name="imu_joint" type="fixed">
     <parent link="rear_axle_middle" />
     <child link="imu_link" />
+	<origin xyz="0.15 -0.06 0.05" />
+  </joint>
+
+  <joint name="vesc_odom_joint" type="fixed">
+    <parent link="rear_axle_middle" />
+    <child link="vesc_odom" />
 	<origin xyz="0.15 -0.06 0.05" />
   </joint>
 

@@ -29,8 +29,8 @@
 
 vesc_to_odom_node:
   ros__parameters:
-    odom_frame: odom
-    base_frame: base_link
+    odom_frame: vesc_odom
+    base_frame: rear_axle_middle
     # publish odom to base link tf
     publish_tf: true
     use_servo_cmd_to_calc_angular_velocity: true
