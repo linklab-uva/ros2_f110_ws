@@ -40,6 +40,11 @@ def generate_launch_description():
         'config',
         'vesc.yaml'
     )
+    ekf_config = os.path.join(
+        get_package_share_directory('f1tenth_stack'),
+        'config',
+        'ekf.yaml'
+    )
     urdf_file = os.path.join(
         get_package_share_directory('f1tenth_stack'),
         'urdf',
@@ -128,11 +133,20 @@ def generate_launch_description():
             arguments=[urdf_file]
     )
 
+    ekf_node = Node(
+         package='robot_localization',
+         executable='ekf_node',
+         name='ekf_filter_node',
+         output='screen',
+         parameters=[ekf_config, {'use_sim_time': use_sim_time}]
+    )
+
     ld.add_action(ackermann_to_vesc_node)
     ld.add_action(vesc_to_odom_node)
     ld.add_action(vesc_driver_node)
     ld.add_action(throttle_interpolator_node)
     ld.add_action(urg_node)
+    ld.add_action(ekf_node)
     ld.add_action(ackermann_mux_node)
     ld.add_action(robot_state_publisher)
 

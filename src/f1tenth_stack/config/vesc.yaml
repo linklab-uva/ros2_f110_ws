@@ -30,12 +30,12 @@
 vesc_to_odom_node:
   ros__parameters:
     odom_frame: vesc_odom
-    base_frame: rear_axle_middle
+    base_frame: base_link
     # publish odom to base link tf
     publish_tf: true
     use_servo_cmd_to_calc_angular_velocity: true
     # car wheelbase is about 40cm
-    wheelbase: .4
+    wheelbase: .33
 
 # No longer needed, all parameters are shared
 # vesc_driver:
