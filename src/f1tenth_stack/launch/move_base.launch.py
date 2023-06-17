@@ -91,6 +91,7 @@ def generate_launch_description():
         executable='vesc_to_odom_node',
         namespace=car_namespace,
         name='vesc_to_odom_node',
+        # remappings=[('odom', 'vesc_odom')],
         parameters=[LaunchConfiguration('vesc_config')]
     )
     vesc_driver_node = Node(
