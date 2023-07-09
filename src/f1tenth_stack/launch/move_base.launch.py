@@ -77,19 +77,24 @@ def generate_launch_description():
         default_value=mux_config,
         description='Descriptions for ackermann mux configs')
 
-    ld = LaunchDescription([vesc_la, sensors_la, mux_la])
+    ns_la = DeclareLaunchArgument(
+        'ns',
+        default_value=car_namespace,
+        description='Namespace argument')
+
+    ld = LaunchDescription([vesc_la, sensors_la, mux_la, ns_la])
 
     ackermann_to_vesc_node = Node(
         package='vesc_ackermann',
         executable='ackermann_to_vesc_node',
-        namespace=car_namespace,
+        namespace=LaunchConfiguration('ns'),
         name='ackermann_to_vesc_node',
         parameters=[LaunchConfiguration('vesc_config')]
     )
     vesc_to_odom_node = Node(
         package='vesc_ackermann',
         executable='vesc_to_odom_node',
-        namespace=car_namespace,
+        namespace=LaunchConfiguration('ns'),
         name='vesc_to_odom_node',
         # remappings=[('odom', 'vesc_odom')],
         parameters=[LaunchConfiguration('vesc_config')]
@@ -97,57 +102,58 @@ def generate_launch_description():
     vesc_driver_node = Node(
         package='vesc_driver',
         executable='vesc_driver_node',
-        namespace=car_namespace,
+        namespace=LaunchConfiguration('ns'),
         name='vesc_driver_node',
         parameters=[LaunchConfiguration('vesc_config')]
     )
     throttle_interpolator_node = Node(
         package='f1tenth_stack',
         executable='throttle_interpolator',
-        namespace=car_namespace,
+        namespace=LaunchConfiguration('ns'),
         name='throttle_interpolator',
         parameters=[LaunchConfiguration('vesc_config')]
     )
     urg_node = Node(
         package='urg_node',
         executable='urg_node_driver',
-        namespace=car_namespace,
+        namespace=LaunchConfiguration('ns'),
         name='urg_node',
         parameters=[LaunchConfiguration('sensors_config')]
     )
     ackermann_mux_node = Node(
         package='ackermann_mux',
         executable='ackermann_mux',
-        namespace=car_namespace,
+        namespace=LaunchConfiguration('ns'),
         name='ackermann_mux',
         parameters=[LaunchConfiguration('mux_config')],
         remappings=[('ackermann_cmd_out', 'ackermann_drive')]
     )
 
     robot_state_publisher = Node(
-            package='robot_state_publisher',
-            executable='robot_state_publisher',
-            namespace=car_namespace,
-            name='robot_state_publisher',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
-            arguments=[urdf_file]
-    )
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        namespace=LaunchConfiguration('ns'),
+        name='robot_state_publisher',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
+        arguments=[urdf_file]
+)
 
     ekf_node = Node(
          package='robot_localization',
          executable='ekf_node',
          name='ekf_filter_node',
+         namespace=LaunchConfiguration('ns'),
          output='screen',
          parameters=[ekf_config, {'use_sim_time': use_sim_time}]
     )
 
-    ld.add_action(ackermann_to_vesc_node)
+    # ld.add_action(ackermann_to_vesc_node)
     ld.add_action(vesc_to_odom_node)
     ld.add_action(vesc_driver_node)
     ld.add_action(throttle_interpolator_node)
     ld.add_action(urg_node)
-    ld.add_action(ekf_node)
+    # ld.add_action(ekf_node)
     ld.add_action(ackermann_mux_node)
     ld.add_action(robot_state_publisher)
 
