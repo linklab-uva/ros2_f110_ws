@@ -63,13 +63,13 @@ private:
     last_rpm = smoothed_rpm;
     // auto rpm_msg = std_msgs::msg::Float64();
     std_msgs::msg::Float64 rpm_msg;
-    rpm_msg.data = static_cast<float>(smoothed_rpm);
+    rpm_msg.data = static_cast<float>(speed_to_erpm_gain * smoothed_rpm);
     rpm_output->publish(rpm_msg);
   }
 
   void _process_throttle_command(const ackermann_msgs::msg::AckermannDriveStamped::SharedPtr msg)
   {
-    double input_rpm = speed_to_erpm_gain * msg->drive.speed;
+    double input_rpm = msg->drive.speed;
     // Do some sanity clipping
     input_rpm = std::min(std::max(input_rpm, min_rpm), max_rpm);
     desired_rpm = input_rpm;
@@ -77,7 +77,6 @@ private:
     double input_servo = msg->drive.steering_angle;
     input_servo = (input_servo + 100)/(200);
     input_servo = input_servo * (max_servo - min_servo);
-    input_servo += servo_offset;
     // Do some sanity clipping
     input_servo = std::min(std::max(input_servo, min_servo), max_servo);
     // set the target servo position

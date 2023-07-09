@@ -1,44 +1,40 @@
 joy:
   ros__parameters:
-    device_name: js0
+    dev: /dev/input/js1
     deadzone: 0.05
     autorepeat_rate: 20.0
     coalesce_interval: 0.01
 
 joy_teleop:
   ros__parameters:
-    default:
-      type: topic
-      interface_type: ackermann_msgs/msg/AckermannDriveStamped
-      topic_name: teleop
-      axis_mappings:
-        drive-speed:
-          axis: 1
-          scale: 0.0
-          offset: 0.0
-        drive-steering_angle:
-          axis: 2
-          scale: 0.0
-          offset: 0.0
-
     human_control:
       type: topic
       interface_type: ackermann_msgs/msg/AckermannDriveStamped
+      deadman_buttons: [4]
       topic_name: teleop
       axis_mappings:
         drive-speed:
           axis: 1
-          scale: 5.0
+          scale: 20.0
           offset: 0.0
         drive-steering_angle:
           axis: 2
-          scale: 100.0
+          scale: -100.0
           offset: 0.0
 
     autonomous_control:
       type: topic
-      interface_type: std_msgs/msg/Int8
-      topic_name: /dev/null
+      interface_type: std_msgs/msg/Bool
+      deadman_buttons: [5]
+      topic_name: /autonomy_enabled
       message_value:
         data:
-          value: 0
+          value: true
+    autonomous_control2:
+      type: topic
+      interface_type: std_msgs/msg/Bool
+      deadman_buttons: [4]
+      topic_name: /autonomy_enabled
+      message_value:
+        data:
+          value: false
