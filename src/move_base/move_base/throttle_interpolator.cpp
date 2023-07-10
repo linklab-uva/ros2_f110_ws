@@ -39,13 +39,15 @@ public:
 
     last_rpm = 0;
     desired_rpm = last_rpm;
-    desired_servo_position = last_servo;
+    desired_servo_position = 0.5;
+    last_servo = desired_servo_position;
+    last_msg_time = 0;
 
     rpm_output = this->create_publisher<std_msgs::msg::Float64>(rpm_output_topic, 1);
     servo_output = this->create_publisher<std_msgs::msg::Float64>(servo_output_topic, 1);
 
     
-    ackermann_sub_ = create_subscription<ackermann_msgs::msg::AckermannDriveStamped>(drive_input_topic, 10, std::bind(&ThrottleInterpolator::_process_throttle_command, this, std::placeholders::_1));
+    ackermann_sub_ = create_subscription<ackermann_msgs::msg::AckermannDriveStamped>(drive_input_topic, 10, std::bind(&ThrottleInterpolator::_process_control_command, this, std::placeholders::_1));
     
     max_delta_servo = abs(steering_angle_to_servo_gain * max_servo_speed / servo_smoother_rate);
     servo_timer = this->create_wall_timer(std::chrono::duration<double>(1.0 / servo_smoother_rate), std::bind(&ThrottleInterpolator::_publish_servo_command, this));
@@ -64,10 +66,12 @@ private:
     // auto rpm_msg = std_msgs::msg::Float64();
     std_msgs::msg::Float64 rpm_msg;
     rpm_msg.data = static_cast<float>(speed_to_erpm_gain * smoothed_rpm);
+    if(double(rclcpp::Clock().now().seconds()) - last_msg_time > 0.5)
+      rpm_msg.data = 0.0;
     rpm_output->publish(rpm_msg);
   }
 
-  void _process_throttle_command(const ackermann_msgs::msg::AckermannDriveStamped::SharedPtr msg)
+  void _process_control_command(const ackermann_msgs::msg::AckermannDriveStamped::SharedPtr msg)
   {
     double input_rpm = msg->drive.speed;
     // Do some sanity clipping
@@ -81,6 +85,7 @@ private:
     input_servo = std::min(std::max(input_servo, min_servo), max_servo);
     // set the target servo position
     desired_servo_position = input_servo;
+    last_msg_time = double(rclcpp::Clock().now().seconds());
   }
 
   void _publish_servo_command()
@@ -92,6 +97,9 @@ private:
     // auto servo_msg = std::make_shared<std_msgs::msg::Float64>();
     std_msgs::msg::Float64 servo_msg;
     servo_msg.data = static_cast<float>(smoothed_servo);
+    
+    if(double(rclcpp::Clock().now().seconds()) - last_msg_time > 0.5)
+      servo_msg.data = 0.5;
     servo_output->publish(servo_msg);
   }
 
@@ -116,7 +124,7 @@ private:
   double min_servo;
   double servo_offset;
   double last_servo;
-
+  double last_msg_time;
   double last_rpm;
   double desired_rpm;
   double desired_servo_position;

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>f1tenth_stack</name>
+  <name>move_base</name>
   <version>0.0.1</version>
   <description>Onboard drivers for vesc and sensors for F1TENTH vehicles.</description>
   <maintainer email="jwl9vq@virginia.edu">Hongrui Zheng</maintainer>

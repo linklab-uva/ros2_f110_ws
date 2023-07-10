@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(f1tenth_stack)
+project(move_base)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -23,7 +23,7 @@ find_package(ackermann_msgs REQUIRED)
 
 include_directories(include)
 
-add_executable(throttle_interpolator f1tenth_stack/throttle_interpolator.cpp)
+add_executable(throttle_interpolator ${PROJECT_NAME}/throttle_interpolator.cpp)
 ament_target_dependencies(throttle_interpolator rclcpp std_msgs ackermann_msgs)
 install(
   TARGETS throttle_interpolator
