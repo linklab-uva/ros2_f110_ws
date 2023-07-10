@@ -33,7 +33,7 @@ import os
 
 def generate_launch_description():
     joy_teleop_config = os.path.join(
-        get_package_share_directory('f1tenth_stack'),
+        get_package_share_directory('move_base'),
         'config',
         'joy_teleop510.yaml'
     )

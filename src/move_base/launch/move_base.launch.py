@@ -36,17 +36,17 @@ def generate_launch_description():
     use_sim_time = False
 
     vesc_config = os.path.join(
-        get_package_share_directory('f1tenth_stack'),
+        get_package_share_directory('move_base'),
         'config',
         'vesc.yaml'
     )
     ekf_config = os.path.join(
-        get_package_share_directory('f1tenth_stack'),
+        get_package_share_directory('move_base'),
         'config',
         'ekf.yaml'
     )
     urdf_file = os.path.join(
-        get_package_share_directory('f1tenth_stack'),
+        get_package_share_directory('move_base'),
         'urdf',
         'f110.urdf'
     )
@@ -54,12 +54,12 @@ def generate_launch_description():
         robot_desc = infp.read()
 
     sensors_config = os.path.join(
-        get_package_share_directory('f1tenth_stack'),
+        get_package_share_directory('move_base'),
         'config',
         'sensors.yaml'
     )
     mux_config = os.path.join(
-        get_package_share_directory('f1tenth_stack'),
+        get_package_share_directory('move_base'),
         'config',
         'mux.yaml'
     )
@@ -107,7 +107,7 @@ def generate_launch_description():
         parameters=[LaunchConfiguration('vesc_config')]
     )
     throttle_interpolator_node = Node(
-        package='f1tenth_stack',
+        package='move_base',
         executable='throttle_interpolator',
         namespace=LaunchConfiguration('ns'),
         name='throttle_interpolator',
