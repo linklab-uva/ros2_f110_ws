@@ -1,2 +1,2 @@
 
-sudo apt-get install ros-$ROS_DISTRO-urg-node ros-$ROS_DISTRO-joy-teleop ros-$ROS_DISTRO-serial-driver ros-$ROS_DISTRO-diagnostic-updater ros-$ROS_DISTRO-ackermann-msgs ros-$ROS_DISTRO-robot-localization ros-$ROS_DISTRO-nav2-map-server ros-$ROS_DISTRO-nav2-common
+sudo apt-get install ros-$ROS_DISTRO-urg-node ros-$ROS_DISTRO-joy-teleop ros-$ROS_DISTRO-serial-driver ros-$ROS_DISTRO-diagnostic-updater ros-$ROS_DISTRO-ackermann-msgs ros-$ROS_DISTRO-robot-localization ros-$ROS_DISTRO-nav2-map-server ros-$ROS_DISTRO-nav2-common ros-$ROS_DISTRO-nav2-tf-transformations ros-$ROS_DISTRO-nav2-bringup -y

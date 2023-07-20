@@ -28,9 +28,9 @@ particle_filter:
     motion_dispersion_y: 0.025
     motion_dispersion_theta: 0.25
     # sensor model variant, variant 2 good for rmgpu, 3 doesn't work for rmgpu
-    rangelib_variant: 3
+    rangelib_variant: 2
 
 map_server:
   ros__parameters:
     # assuming map file is in particle_filter/maps
-    map: 'map4'
+    map: 'rice_242'

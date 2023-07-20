@@ -33,13 +33,13 @@ import yaml
 def generate_launch_description():
     # config and args
     localize_config = os.path.join(get_package_share_directory('particle_filter'), 'config', 'localize.yaml')
-    default_rviz_config_path = os.path.join(get_package_share_directory('localization'), 'rviz/config.rviz')
+    default_rviz_config_path = os.path.join(get_package_share_directory('particle_filter'), 'rviz/config.rviz')
     localize_config_dict = yaml.safe_load(open(localize_config, 'r'))
     nav2_dir = get_package_share_directory('nav2_bringup')
     nav2_launch_dir = os.path.join(nav2_dir, 'launch') 
     nav2_params = os.path.join(get_package_share_directory('particle_filter'), 'config', 'nav2.yaml')
     map_name = localize_config_dict['map_server']['ros__parameters']['map']
-    map_file_path = os.path.join(get_package_share_directory('particle_filter'), 'maps', 'map4.yaml')
+    map_file_path = os.path.join(get_package_share_directory('particle_filter'), 'maps', 'rice_242.yaml')
     rviz = DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path, description='Absolute path to rviz config file')
     localize_la = DeclareLaunchArgument(
         'localize_config',
@@ -96,7 +96,7 @@ def generate_launch_description():
     # finalize
     ld.add_action(nav_lifecycle_node)
     ld.add_action(map_server_node)
-    ld.add_action(ekf_node)
+    # ld.add_action(ekf_node)
     #ld.add_action(rviz_node)
     #ld.add_action(map_updater)
     ld.add_action(pf_node)
